@@ -7,8 +7,15 @@
 <body>
     <h1>Recipes</h1>
 
-    <table th:each="recipe : ${recipes}">
-        <tr th:text="${recipe.description}">description</tr>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+        </tr>
+        <tr th:each="recipe : ${recipes}">
+            <td th:text="${recipe.id}">id</td>
+            <td th:text="${recipe.description}">description</td>
+        </tr>
     </table>
 </body>
 </html>

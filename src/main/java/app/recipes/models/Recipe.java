@@ -147,13 +147,11 @@ public class Recipe
         this.difficulty = difficulty;
     }
 
-    public Notes getNotes()
-    {
-        return notes;
-    }
+    public Notes getNotes() { return notes; }
 
     public void setNotes(Notes notes)
     {
+        notes.setRecipe(this);
         this.notes = notes;
     }
 
@@ -165,5 +163,10 @@ public class Recipe
     public void setCategories(Set<Category> categories)
     {
         this.categories = categories;
+    }
+
+    public void addIngredient(Ingredient ingredient)
+    {
+        ingredients.add(ingredient);
     }
 }

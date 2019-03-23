@@ -4,6 +4,7 @@ import app.recipes.models.*;
 import app.recipes.repositorys.CategoryRepository;
 import app.recipes.repositorys.RecipeRepository;
 import app.recipes.repositorys.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
 {
@@ -133,7 +135,6 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
                 "\n" +
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws");
-        guacNotes.setRecipe(guacRecipe);
         guacRecipe.setNotes(guacNotes);
 
         guacRecipe.addIngredient(new Ingredient("ripe avocados", new BigDecimal(2), eachUom, guacRecipe));
@@ -145,8 +146,8 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
         guacRecipe.addIngredient(new Ingredient("freshly grated black pepper", new BigDecimal(2), dashUom, guacRecipe));
         guacRecipe.addIngredient(new Ingredient("ripe tomato, seeds and pulp removed, chopped", new BigDecimal(".5"), eachUom, guacRecipe));
 
-        guacRecipe.getCategories().add(americanCategory);
-        guacRecipe.getCategories().add(mexicanCategory);
+        guacRecipe.addCategory(americanCategory);
+        guacRecipe.addCategory(mexicanCategory);
 
         //add to return list
         recipes.add(guacRecipe);
@@ -203,8 +204,8 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
         tacosRecipe.addIngredient(new Ingredient("cup sour cream thinned with 1/4 cup milk", new BigDecimal(4), cupsUom, tacosRecipe));
         tacosRecipe.addIngredient(new Ingredient("lime, cut into wedges", new BigDecimal(4), eachUom, tacosRecipe));
 
-        tacosRecipe.getCategories().add(americanCategory);
-        tacosRecipe.getCategories().add(mexicanCategory);
+        tacosRecipe.addCategory(americanCategory);
+        tacosRecipe.addCategory(mexicanCategory);
 
         recipes.add(tacosRecipe);
 
@@ -245,10 +246,11 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
         crispyCheese.setNotes(crispyCheeseNote);
 
         // setting categories.
-        crispyCheese.getCategories().add(mexicanCategory);
+        crispyCheese.addCategory(mexicanCategory);
 
         recipes.add(crispyCheese);
 
+        log.debug("Added mock data to h2 database");
         return recipes;
 
     }

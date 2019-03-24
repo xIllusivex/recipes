@@ -1,6 +1,5 @@
 package app.recipes.services;
 
-import app.recipes.models.Ingredient;
 import app.recipes.models.Recipe;
 import app.recipes.repositorys.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;

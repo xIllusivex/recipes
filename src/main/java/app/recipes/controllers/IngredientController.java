@@ -1,8 +1,8 @@
 package app.recipes.controllers;
 
-import app.recipes.commands.IngredientCommand;
 import app.recipes.services.IngredientService;
 import app.recipes.services.RecipeService;
+import app.recipes.services.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +16,13 @@ public class IngredientController
 {
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
+    private final UnitOfMeasureService unitOfMeasureService;
 
-    public IngredientController(RecipeService recipeService, IngredientService ingredientService)
+    public IngredientController(RecipeService recipeService, IngredientService ingredientService, UnitOfMeasureService unitOfMeasureService)
     {
         this.recipeService = recipeService;
         this.ingredientService = ingredientService;
+        this.unitOfMeasureService = unitOfMeasureService;
     }
 
     @GetMapping
@@ -41,5 +43,16 @@ public class IngredientController
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, id));
 
         return "/recipe/ingredient/show";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/update")
+    public String updateRecipeIngredient(@PathVariable Long recipeId, @PathVariable Long id, Model model)
+    {
+        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, id));
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientForm";
     }
 }

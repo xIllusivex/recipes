@@ -1,6 +1,7 @@
 package app.recipes.converters;
 
 import app.recipes.commands.RecipeCommand;
+import app.recipes.models.Difficulty;
 import app.recipes.models.Recipe;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;

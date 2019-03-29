@@ -1,11 +1,11 @@
 package app.recipes.controllers;
 
+import app.recipes.commands.RecipeCommand;
 import app.recipes.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -26,5 +26,30 @@ public class RecipeController
         model.addAttribute("recipe", recipeService.findById(id));
 
         return "recipe/show";
+    }
+
+    @RequestMapping("recipe/new")
+    public String newRecipe(Model model)
+    {
+        model.addAttribute("recipe", new RecipeCommand());
+
+        return "recipe/recipeForm";
+    }
+
+    @RequestMapping("/recipe/update/{id}")
+    public String updateRecipe(@PathVariable Long id, Model model)
+    {
+        model.addAttribute("recipe", recipeService.findCommandById(id));
+
+        return "recipe/recipeForm";
+    }
+
+    @PostMapping
+    @RequestMapping("recipe")
+    public String saveOrUpdate(@ModelAttribute RecipeCommand command)
+    {
+        RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
+
+        return "redirect:/recipe/show/" + savedCommand.getId();
     }
 }

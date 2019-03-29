@@ -1,11 +1,14 @@
 package app.recipes.services;
 
 import app.recipes.commands.IngredientCommand;
+import app.recipes.converters.IngredientCommandToIngredient;
 import app.recipes.converters.IngredientToIngredientCommand;
+import app.recipes.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import app.recipes.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import app.recipes.models.Ingredient;
 import app.recipes.models.Recipe;
 import app.recipes.repositorys.RecipeRepository;
+import app.recipes.repositorys.UnitOfMeasureRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -20,9 +23,13 @@ import static org.mockito.Mockito.*;
 public class IngredientServiceImplTest
 {
     private final IngredientToIngredientCommand ingredientToIngredientCommand;
+    private final IngredientCommandToIngredient ingredientCommandToIngredient;
 
     @Mock
     RecipeRepository recipeRepository;
+
+    @Mock
+    UnitOfMeasureRepository unitOfMeasureRepository;
 
     IngredientService ingredientService;
 
@@ -30,6 +37,7 @@ public class IngredientServiceImplTest
     {
         // init converters
         this.ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
+        this.ingredientCommandToIngredient = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
     }
 
     @Before
@@ -37,7 +45,7 @@ public class IngredientServiceImplTest
     {
         MockitoAnnotations.initMocks(this);
 
-        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, recipeRepository);
+        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient, recipeRepository, unitOfMeasureRepository);
     }
 
     @Test

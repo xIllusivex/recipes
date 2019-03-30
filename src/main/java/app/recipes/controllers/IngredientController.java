@@ -1,12 +1,8 @@
 package app.recipes.controllers;
 
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import app.recipes.commands.IngredientCommand;
 import app.recipes.commands.RecipeCommand;
 import app.recipes.commands.UnitOfMeasureCommand;
-import app.recipes.models.Recipe;
 import app.recipes.services.IngredientService;
 import app.recipes.services.RecipeService;
 import app.recipes.services.UnitOfMeasureService;
@@ -30,8 +26,7 @@ public class IngredientController
         this.unitOfMeasureService = unitOfMeasureService;
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{id}/ingredients")
+    @GetMapping("/recipe/{id}/ingredients")
     public String listIngredients(@PathVariable Long id, Model model)
     {
         log.debug("Getting ingredient list for recipe id " + id);
@@ -41,8 +36,7 @@ public class IngredientController
         return "recipe/ingredient/list";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/show")
+    @GetMapping("/recipe/{recipeId}/ingredient/{id}/show")
     public String showIngredient(@PathVariable Long recipeId, @PathVariable Long id, Model model)
     {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, id));
@@ -50,8 +44,7 @@ public class IngredientController
         return "/recipe/ingredient/show";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    @GetMapping("/recipe/{recipeId}/ingredient/new")
     public String newRecipe(@PathVariable Long recipeId, Model model)
     {
         //todo throw exception if null
@@ -70,8 +63,7 @@ public class IngredientController
         return "recipe/ingredient/ingredientForm";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/update")
+    @GetMapping("/recipe/{recipeId}/ingredient/{id}/update")
     public String updateRecipeIngredient(@PathVariable Long recipeId, @PathVariable Long id, Model model)
     {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, id));
@@ -81,8 +73,7 @@ public class IngredientController
         return "recipe/ingredient/ingredientForm";
     }
 
-    @PostMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient")
+    @PostMapping("/recipe/{recipeId}/ingredient")
     public String saveOrUpdate(@ModelAttribute IngredientCommand command, @PathVariable Long recipeId)
     {
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
@@ -92,8 +83,7 @@ public class IngredientController
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/delete")
+    @GetMapping("/recipe/{recipeId}/ingredient/{id}/delete")
     public String deleteIngredient(@PathVariable Long recipeId, @PathVariable Long id)
     {
         ingredientService.deleteById(recipeId, id);

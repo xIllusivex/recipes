@@ -1,6 +1,12 @@
 package app.recipes.controllers;
 
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import app.recipes.commands.IngredientCommand;
+import app.recipes.commands.RecipeCommand;
+import app.recipes.commands.UnitOfMeasureCommand;
+import app.recipes.models.Recipe;
 import app.recipes.services.IngredientService;
 import app.recipes.services.RecipeService;
 import app.recipes.services.UnitOfMeasureService;
@@ -45,6 +51,26 @@ public class IngredientController
     }
 
     @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable Long recipeId, Model model)
+    {
+        //todo throw exception if null
+        RecipeCommand recipeCommand = recipeService.findCommandById(recipeId);
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(recipeId);
+
+        model.addAttribute("ingredient", ingredientCommand);
+
+        //initializing a blank unit of measurement
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        //loading in all unit of measurement options for the drop down.
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientForm";
+    }
+
+    @GetMapping
     @RequestMapping("/recipe/{recipeId}/ingredient/{id}/update")
     public String updateRecipeIngredient(@PathVariable Long recipeId, @PathVariable Long id, Model model)
     {
@@ -64,5 +90,21 @@ public class IngredientController
         log.debug("saved Ingredient id " + command.getId());
 
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/delete")
+    public String deleteIngredient(@PathVariable Long recipeId, @PathVariable Long id, Model model)
+    {
+        Recipe recipe = recipeService.findById(recipeId);
+
+        if (recipe.getId() == null)
+        {
+            throw new RuntimeException("No recipe found.");
+        }
+
+        recipe.setIngredients(recipe.getIngredients().stream().filter(ingredient -> !ingredient.getId().equals(id)).collect(Collectors.toSet()));
+
+        recipeService.save();
     }
 }

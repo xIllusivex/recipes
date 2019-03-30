@@ -94,17 +94,11 @@ public class IngredientController
 
     @GetMapping
     @RequestMapping("/recipe/{recipeId}/ingredient/{id}/delete")
-    public String deleteIngredient(@PathVariable Long recipeId, @PathVariable Long id, Model model)
+    public String deleteIngredient(@PathVariable Long recipeId, @PathVariable Long id)
     {
-        Recipe recipe = recipeService.findById(recipeId);
+        ingredientService.deleteById(recipeId, id);
 
-        if (recipe.getId() == null)
-        {
-            throw new RuntimeException("No recipe found.");
-        }
+        return "redirect:/recipe/" + recipeId + "/ingredients";
 
-        recipe.setIngredients(recipe.getIngredients().stream().filter(ingredient -> !ingredient.getId().equals(id)).collect(Collectors.toSet()));
-
-        recipeService.save();
     }
 }

@@ -17,6 +17,4 @@ public interface RecipeService
 
     void deleteById(Long id);
 
-    Recipe save(Recipe recipe);
-
 }

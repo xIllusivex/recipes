@@ -76,10 +76,4 @@ public class RecipeServiceImpl implements RecipeService
     {
         recipeRepository.deleteById(id);
     }
-
-    @Override
-    public Recipe save(Recipe recipe)
-    {
-        return recipeRepository.save(recipe);
-    }
 }

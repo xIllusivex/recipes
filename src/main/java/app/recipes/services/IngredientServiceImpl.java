@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -106,5 +107,34 @@ public class IngredientServiceImpl implements IngredientService
 
             return ingredientToIngredientCommand.convert(savedIngredientOptional.get());
         }
+    }
+
+    @Override
+    public void deleteById(Long recipeId, Long id)
+    {
+        log.debug("deleting ingredient: " + id + " from recipe id: " + recipeId);
+
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+
+        if (!recipeOptional.isPresent())
+        {
+            throw new RuntimeException("No Recipe found!");
+        }
+
+        Recipe recipe = recipeOptional.get();
+
+        Optional<Ingredient> ingredientOptional = recipe.getIngredients().stream()
+                .filter(ingredient -> ingredient.getId().equals(id))
+                .findFirst();
+
+        if (ingredientOptional.isPresent())
+        {
+            log.debug("found ingredient!");
+            Ingredient ingredientToDelete = ingredientOptional.get();
+            ingredientToDelete.setRecipe(null);
+            recipe.getIngredients().remove(ingredientToDelete);
+        }
+
+        recipeRepository.save(recipe);
     }
 }

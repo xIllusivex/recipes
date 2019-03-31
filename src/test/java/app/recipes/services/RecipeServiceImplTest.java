@@ -2,6 +2,7 @@ package app.recipes.services;
 
 import app.recipes.converters.RecipeCommandToRecipe;
 import app.recipes.converters.RecipeToRecipeCommand;
+import app.recipes.exceptions.NotFoundException;
 import app.recipes.models.Recipe;
 import app.recipes.repositorys.RecipeRepository;
 import org.junit.Before;
@@ -69,5 +70,17 @@ public class RecipeServiceImplTest
         assertEquals(recipes.size(), 1);
 
         verify(recipeRepository, times(1)).findAll();
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdNotFound() throws Exception
+    {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.findById(1L);
+
+
     }
 }

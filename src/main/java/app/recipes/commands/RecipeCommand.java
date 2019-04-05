@@ -1,6 +1,7 @@
 package app.recipes.commands;
 
 import app.recipes.models.Difficulty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +20,29 @@ import java.util.Set;
 public class RecipeCommand
 {
     private Long id;
+
+    @Builder
+    public RecipeCommand(Long id, @NotBlank @Size(min = 3, max = 255) String description,
+                         @Min(1) @Max(999) Integer prepTime, @Min(1) @Max(999) Integer cookTime,
+                         @Min(1) @Max(100) Integer servings, String source, @URL @NotBlank String url,
+                         @NotBlank String directions, Byte[] image, Set<IngredientCommand> ingredients,
+                         Difficulty difficulty, NotesCommand notes, Set<CategoryCommand> categories)
+    {
+        this.id = id;
+        this.description = description;
+        this.prepTime = prepTime;
+        this.cookTime = cookTime;
+        this.servings = servings;
+        this.source = source;
+        this.url = url;
+        this.directions = directions;
+        this.image = image;
+        this.ingredients = ingredients;
+        this.difficulty = difficulty;
+        this.notes = notes;
+        this.categories = categories;
+    }
+
 
     @NotBlank
     @Size(min = 3, max = 255)

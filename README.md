@@ -3,5 +3,3 @@
  [![codecov](https://codecov.io/gh/EricGomez101/recipes/branch/master/graph/badge.svg)](https://codecov.io/gh/EricGomez101/recipes)
 
 a recipes app create with spring boot
-  
-![codecov coverage report](https://codecov.io/gh/EricGomez101/recipes/branch/master/graph/badge.svg "CodeCov coverage report.")

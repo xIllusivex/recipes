@@ -27,7 +27,7 @@ public class IngredientController
     }
 
     @GetMapping("/recipe/{id}/ingredients")
-    public String listIngredients(@PathVariable Long id, Model model)
+    public String listIngredients(@PathVariable String id, Model model)
     {
         log.debug("Getting ingredient list for recipe id " + id);
 
@@ -37,7 +37,7 @@ public class IngredientController
     }
 
     @GetMapping("/recipe/{recipeId}/ingredient/{id}/show")
-    public String showIngredient(@PathVariable Long recipeId, @PathVariable Long id, Model model)
+    public String showIngredient(@PathVariable String recipeId, @PathVariable String id, Model model)
     {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, id));
 
@@ -45,7 +45,7 @@ public class IngredientController
     }
 
     @GetMapping("/recipe/{recipeId}/ingredient/new")
-    public String newRecipe(@PathVariable Long recipeId, Model model)
+    public String newRecipe(@PathVariable String recipeId, Model model)
     {
         //todo throw exception if null
         RecipeCommand recipeCommand = recipeService.findCommandById(recipeId);
@@ -64,7 +64,7 @@ public class IngredientController
     }
 
     @GetMapping("/recipe/{recipeId}/ingredient/{id}/update")
-    public String updateRecipeIngredient(@PathVariable Long recipeId, @PathVariable Long id, Model model)
+    public String updateRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model)
     {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, id));
 
@@ -74,7 +74,7 @@ public class IngredientController
     }
 
     @PostMapping("/recipe/{recipeId}/ingredient")
-    public String saveOrUpdate(@ModelAttribute IngredientCommand command, @PathVariable Long recipeId)
+    public String saveOrUpdate(@ModelAttribute IngredientCommand command, @PathVariable String recipeId)
     {
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
 
@@ -84,7 +84,7 @@ public class IngredientController
     }
 
     @GetMapping("/recipe/{recipeId}/ingredient/{id}/delete")
-    public String deleteIngredient(@PathVariable Long recipeId, @PathVariable Long id)
+    public String deleteIngredient(@PathVariable String recipeId, @PathVariable String id)
     {
         ingredientService.deleteById(recipeId, id);
 

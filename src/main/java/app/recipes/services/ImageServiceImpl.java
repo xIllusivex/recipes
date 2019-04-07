@@ -23,7 +23,7 @@ public class ImageServiceImpl implements ImageService
 
     @Override
     @Transactional
-    public void saveImage(Long recipeId, MultipartFile file)
+    public void saveImage(String recipeId, MultipartFile file)
     {
         log.debug("saving image.");
 

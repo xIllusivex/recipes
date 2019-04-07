@@ -1,0 +1,4 @@
+logging:
+  level:
+    app:
+      recipes: debug

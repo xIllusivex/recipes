@@ -16,8 +16,8 @@ public class RecipeCommandToRecipeTest
 {
     private RecipeCommandToRecipe recipeCommandToRecipe;
     private RecipeCommand recipeCommand;
-    private final Long id = 1L;
-    private final NotesCommand notesCommand = new NotesCommand().builder().id(1L).recipeNotes("Hello, World").build();
+    private final String id = "1";
+    private final NotesCommand notesCommand = new NotesCommand().builder().id("1").recipeNotes("Hello, World").build();
 
     @Before
     public void setUp() throws Exception

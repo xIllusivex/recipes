@@ -11,11 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NotesCommand
 {
-    private Long id;
+    private String id;
     private String recipeNotes;
 
     @Builder
-    public NotesCommand(Long id, String recipeNotes)
+    public NotesCommand(String id, String recipeNotes)
     {
         this.id = id;
         this.recipeNotes = recipeNotes;

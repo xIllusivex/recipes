@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -48,9 +49,9 @@ public class RecipeControllerTest
     public void getRecipeTest() throws Exception
     {
         Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        recipe.setId("1");
 
-        when(recipeService.findById(anyLong())).thenReturn(recipe);
+        when(recipeService.findById(anyString())).thenReturn(recipe);
 
         mockMvc.perform(get("/recipe/show/1"))
                 .andExpect(status().isOk())
@@ -61,7 +62,7 @@ public class RecipeControllerTest
     @Test
     public void getRecipeNotFound() throws Exception
     {
-        when (recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+        when (recipeService.findById(anyString())).thenThrow(NotFoundException.class);
 
         mockMvc.perform(get("/recipe/show/4"))
                 .andExpect(status().isNotFound())

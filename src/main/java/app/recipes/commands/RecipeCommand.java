@@ -19,10 +19,10 @@ import java.util.Set;
 @NoArgsConstructor
 public class RecipeCommand
 {
-    private Long id;
+    private String id;
 
     @Builder
-    public RecipeCommand(Long id, @NotBlank @Size(min = 3, max = 255) String description,
+    public RecipeCommand(String id, @NotBlank @Size(min = 3, max = 255) String description,
                          @Min(1) @Max(999) Integer prepTime, @Min(1) @Max(999) Integer cookTime,
                          @Min(1) @Max(100) Integer servings, String source, @URL @NotBlank String url,
                          @NotBlank String directions, Byte[] image, Set<IngredientCommand> ingredients,
@@ -62,7 +62,6 @@ public class RecipeCommand
     private String source;
 
     @URL
-    @NotBlank
     private String url;
 
     @NotBlank

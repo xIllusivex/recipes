@@ -45,7 +45,7 @@ public class IngredientController
     }
 
     @GetMapping("/recipe/{recipeId}/ingredient/new")
-    public String newRecipe(@PathVariable String recipeId, Model model)
+    public String newRecipeIngredient(@PathVariable String recipeId, Model model)
     {
         //todo throw exception if null
         RecipeCommand recipeCommand = recipeService.findCommandById(recipeId);
@@ -68,15 +68,17 @@ public class IngredientController
     {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, id));
 
+        model.addAttribute("recipeId", recipeId);
+
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
 
         return "recipe/ingredient/ingredientForm";
     }
 
     @PostMapping("/recipe/{recipeId}/ingredient")
-    public String saveOrUpdate(@ModelAttribute IngredientCommand command, @PathVariable String recipeId)
+    public String saveOrUpdate(@PathVariable String recipeId, @ModelAttribute IngredientCommand command)
     {
-        IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
+        IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command, recipeId);
 
         log.debug("saved Ingredient id " + command.getId());
 

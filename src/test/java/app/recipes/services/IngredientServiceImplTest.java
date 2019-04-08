@@ -45,7 +45,11 @@ public class IngredientServiceImplTest
     {
         MockitoAnnotations.initMocks(this);
 
-        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient, recipeRepository, unitOfMeasureRepository);
+        ingredientService = new IngredientServiceImpl(
+                ingredientToIngredientCommand,
+                ingredientCommandToIngredient,
+                recipeRepository,
+                unitOfMeasureRepository);
     }
 
     @Test
@@ -75,8 +79,7 @@ public class IngredientServiceImplTest
         IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId("1", "2");
 
         //when
-        assertEquals(String.valueOf("2"), ingredientCommand.getId());
-        assertEquals(String.valueOf("1"), ingredientCommand.getRecipeId());
+        assertEquals("2", ingredientCommand.getId());
         verify(recipeRepository, times(1)).findById(anyString());
     }
 }

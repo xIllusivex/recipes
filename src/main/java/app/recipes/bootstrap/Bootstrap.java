@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Slf4j
 @Component
-@Profile("default")
+@Profile("h2")
 public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
 {
     private RecipeRepository recipeRepository;
@@ -41,7 +41,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
 
     private List<Recipe> getRecipes() {
 
-        List<Recipe> recipes = new ArrayList<>(2);
+        List<Recipe> recipes = new ArrayList<>(3);
 
         //get UOMs
         Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription("Each");

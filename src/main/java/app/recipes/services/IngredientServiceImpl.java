@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -58,9 +59,9 @@ public class IngredientServiceImpl implements IngredientService
 
     @Override
     @Transactional
-    public IngredientCommand saveIngredientCommand(IngredientCommand command)
+    public IngredientCommand saveIngredientCommand(IngredientCommand command, String recipeId)
     {
-        Optional<Recipe> recipeOptional = recipeRepository.findById(command.getRecipeId());
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 
         if(!recipeOptional.isPresent())
         {
@@ -86,7 +87,8 @@ public class IngredientServiceImpl implements IngredientService
             } else
             {
                 Ingredient ingredient = ingredientCommandToIngredient.convert(command);
-                ingredient.setRecipe(recipe);
+                ingredient.setId(UUID.randomUUID().toString());
+//                ingredient.setRecipe(recipe);
                 recipe.addIngredient(ingredient);
 
             }
@@ -105,7 +107,10 @@ public class IngredientServiceImpl implements IngredientService
                         .findFirst();
             }
 
-            return ingredientToIngredientCommand.convert(savedIngredientOptional.get());
+            IngredientCommand ingredientCommandSaved = ingredientToIngredientCommand.convert(savedIngredientOptional.get());
+            ingredientCommandSaved.setRecipeId(recipe.getId());
+
+            return ingredientCommandSaved;
         }
     }
 
@@ -131,7 +136,7 @@ public class IngredientServiceImpl implements IngredientService
         {
             log.debug("found ingredient!");
             Ingredient ingredientToDelete = ingredientOptional.get();
-            ingredientToDelete.setRecipe(null);
+//            ingredientToDelete.setRecipe(null);
             recipe.getIngredients().remove(ingredientToDelete);
         }
 

@@ -5,6 +5,7 @@ import app.recipes.models.Recipe;
 import app.recipes.repositorys.RecipeRepository;
 import app.recipes.services.RecipeService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -71,6 +72,7 @@ public class RecipeControllerTest
 
     }
 
+    @Ignore
     @Test
     public void getRecipeIncorrectDataTypeTest() throws Exception
     {

@@ -58,7 +58,7 @@ public class IngredientController
         ingredientCommand.setUom(new UnitOfMeasureCommand());
 
         //loading in all unit of measurement options for the drop down.
-        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms().collectList().block());
 
         return "recipe/ingredient/ingredientForm";
     }

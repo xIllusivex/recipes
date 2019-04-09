@@ -29,7 +29,7 @@ public class RecipeReactiveRepositoryTest
         Recipe recipe = new Recipe();
         recipe.setDescription("Yummy");
 
-        recipeReactiveRepository.save(recipe);
+        recipeReactiveRepository.save(recipe).block();
 
         Long count = recipeReactiveRepository.count().block();
 

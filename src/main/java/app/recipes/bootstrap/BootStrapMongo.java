@@ -70,10 +70,10 @@ public class BootStrapMongo implements ApplicationListener<ContextRefreshedEvent
         {
             recipeRepository.saveAll(getRecipes());
         }
-
-        log.error("UOM Count: " + unitOfMeasureReactiveRepository.count().block().toString());
-        log.error("Category Count: " + categoryReactiveRepository.count().block().toString());
-        log.error("Recipe Count: " + recipeReactiveRepository.count().block().toString());
+        // these loggers caused the unitofmeasurereactiverepository to fail.
+//        log.error("UOM Count: " + unitOfMeasureReactiveRepository.count().block().toString());
+//        log.error("Category Count: " + categoryReactiveRepository.count().block().toString());
+//        log.error("Recipe Count: " + recipeReactiveRepository.count().block().toString());
     }
 
     private void loadCategories(){

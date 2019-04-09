@@ -4,7 +4,11 @@ import app.recipes.models.*;
 import app.recipes.repositorys.CategoryRepository;
 import app.recipes.repositorys.RecipeRepository;
 import app.recipes.repositorys.UnitOfMeasureRepository;
+import app.recipes.repositorys.reactive.CategoryReactiveRepository;
+import app.recipes.repositorys.reactive.RecipeReactiveRepository;
+import app.recipes.repositorys.reactive.UnitOfMeasureReactiveRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -24,6 +28,15 @@ public class BootStrapMongo implements ApplicationListener<ContextRefreshedEvent
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
+    @Autowired
+    UnitOfMeasureReactiveRepository unitOfMeasureReactiveRepository;
+
+    @Autowired
+    RecipeReactiveRepository recipeReactiveRepository;
+
+    @Autowired
+    CategoryReactiveRepository categoryReactiveRepository;
+
     public BootStrapMongo(CategoryRepository categoryRepository,
                            RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.categoryRepository = categoryRepository;
@@ -34,6 +47,7 @@ public class BootStrapMongo implements ApplicationListener<ContextRefreshedEvent
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+
         Set<Category> categories = new HashSet<>();
         categoryRepository.findAll().forEach(category -> categories.add(category));
 
@@ -57,6 +71,9 @@ public class BootStrapMongo implements ApplicationListener<ContextRefreshedEvent
             recipeRepository.saveAll(getRecipes());
         }
 
+        log.error("UOM Count: " + unitOfMeasureReactiveRepository.count().block().toString());
+        log.error("Category Count: " + categoryReactiveRepository.count().block().toString());
+        log.error("Recipe Count: " + recipeReactiveRepository.count().block().toString());
     }
 
     private void loadCategories(){

@@ -28,15 +28,6 @@ public class BootStrapMongo implements ApplicationListener<ContextRefreshedEvent
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-    @Autowired
-    UnitOfMeasureReactiveRepository unitOfMeasureReactiveRepository;
-
-    @Autowired
-    RecipeReactiveRepository recipeReactiveRepository;
-
-    @Autowired
-    CategoryReactiveRepository categoryReactiveRepository;
-
     public BootStrapMongo(CategoryRepository categoryRepository,
                            RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.categoryRepository = categoryRepository;
@@ -70,10 +61,6 @@ public class BootStrapMongo implements ApplicationListener<ContextRefreshedEvent
         {
             recipeRepository.saveAll(getRecipes());
         }
-        // these loggers caused the unitofmeasurereactiverepository to fail.
-//        log.error("UOM Count: " + unitOfMeasureReactiveRepository.count().block().toString());
-//        log.error("Category Count: " + categoryReactiveRepository.count().block().toString());
-//        log.error("Recipe Count: " + recipeReactiveRepository.count().block().toString());
     }
 
     private void loadCategories(){

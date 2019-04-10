@@ -1,12 +1,13 @@
 package app.recipes.services;
 
 import app.recipes.commands.IngredientCommand;
+import reactor.core.publisher.Mono;
 
 public interface IngredientService
 {
-    IngredientCommand findByRecipeIdAndIngredientId(String recipeId, String ingredientId);
+    Mono<IngredientCommand> findByRecipeIdAndIngredientId(String recipeId, String ingredientId);
 
-    IngredientCommand saveIngredientCommand(IngredientCommand command, String recipeId);
+    Mono<IngredientCommand> saveIngredientCommand(IngredientCommand command, String recipeId);
 
-    void deleteById(String recipeId, String id);
+    Mono<Void> deleteById(String recipeId, String id);
 }

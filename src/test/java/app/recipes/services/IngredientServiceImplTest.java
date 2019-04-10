@@ -9,10 +9,13 @@ import app.recipes.models.Ingredient;
 import app.recipes.models.Recipe;
 import app.recipes.repositorys.RecipeRepository;
 import app.recipes.repositorys.UnitOfMeasureRepository;
+import app.recipes.repositorys.reactive.RecipeReactiveRepository;
+import app.recipes.repositorys.reactive.UnitOfMeasureReactiveRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
@@ -26,10 +29,10 @@ public class IngredientServiceImplTest
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
 
     @Mock
-    RecipeRepository recipeRepository;
+    RecipeReactiveRepository recipeReactiveRepository;
 
     @Mock
-    UnitOfMeasureRepository unitOfMeasureRepository;
+    UnitOfMeasureReactiveRepository unitOfMeasureReactiveRepository;
 
     IngredientService ingredientService;
 
@@ -48,12 +51,12 @@ public class IngredientServiceImplTest
         ingredientService = new IngredientServiceImpl(
                 ingredientToIngredientCommand,
                 ingredientCommandToIngredient,
-                recipeRepository,
-                unitOfMeasureRepository);
+                recipeReactiveRepository,
+                unitOfMeasureReactiveRepository);
     }
 
     @Test
-    public void findByRecipeIdAndIngredientId()
+    public void findByRecipeIdAndIngredientId() throws Exception
     {
         //given
         Recipe recipe = new Recipe();
@@ -71,15 +74,14 @@ public class IngredientServiceImplTest
         recipe.addIngredient(ingredient1);
         recipe.addIngredient(ingredient2);
         recipe.addIngredient(ingredient3);
-        Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
+        when(recipeReactiveRepository.findById(anyString())).thenReturn(Mono.just(recipe));
 
         //then
-        IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId("1", "2");
+        IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId("1", "2").block();
 
         //when
         assertEquals("2", ingredientCommand.getId());
-        verify(recipeRepository, times(1)).findById(anyString());
+        verify(recipeReactiveRepository, times(1)).findById(anyString());
     }
 }

@@ -42,13 +42,18 @@ public class ImageController
     {
         RecipeCommand recipeCommand = recipeService.findCommandById(id);
 
-        byte[] byteArray = new byte[recipeCommand.getImage().length];
+        Byte[] image = recipeCommand.getImage();
 
-        int i = 0;
+        byte[] byteArray = new byte[image != null ? image.length : 0];
 
-        for (Byte wrappedByte : recipeCommand.getImage())
+        if (image != null)
         {
-            byteArray[i++] = wrappedByte; // auto unboxing.
+            int i = 0;
+
+            for (Byte wrappedByte : recipeCommand.getImage())
+            {
+                byteArray[i++] = wrappedByte; // auto unboxing.
+            }
         }
 
         response.setContentType("image/jpeg");

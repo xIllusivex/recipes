@@ -41,7 +41,7 @@ public class IngredientController
     {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, id));
 
-        return "/recipe/ingredient/show";
+        return "recipe/ingredient/show";
     }
 
     @GetMapping("/recipe/{recipeId}/ingredient/new")

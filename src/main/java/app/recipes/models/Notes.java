@@ -1,11 +1,13 @@
 package app.recipes.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(exclude = {"recipe"})
+@JsonIgnoreProperties("recipe")
 @Entity
 public class Notes
 {

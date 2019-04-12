@@ -1,5 +1,6 @@
 package app.recipes.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.util.Set;
 
 @Data
 @EqualsAndHashCode(exclude = {"recipes"})
+@JsonIgnoreProperties("recipes")
 @Entity
 public class Category
 {

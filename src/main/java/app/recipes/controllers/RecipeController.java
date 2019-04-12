@@ -1,7 +1,10 @@
 package app.recipes.controllers;
 
 import app.recipes.commands.RecipeCommand;
+import app.recipes.converters.CategoryToCategoryCommand;
 import app.recipes.exceptions.NotFoundException;
+import app.recipes.models.Category;
+import app.recipes.repositorys.CategoryRepository;
 import app.recipes.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -12,16 +15,21 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Slf4j
 @Controller
 public class RecipeController
 {
     private final RecipeService recipeService;
+    private final CategoryRepository categoryRepository;
+    private final CategoryToCategoryCommand categoryToCategoryCommand;
 
-    public RecipeController(RecipeService recipeService)
+    public RecipeController(RecipeService recipeService, CategoryRepository categoryRepository, CategoryToCategoryCommand categoryToCategoryCommand)
     {
         this.recipeService = recipeService;
+        this.categoryRepository = categoryRepository;
+        this.categoryToCategoryCommand = categoryToCategoryCommand;
     }
 
     @GetMapping("/recipe/show/{id}")
@@ -38,6 +46,7 @@ public class RecipeController
     public String newRecipe(Model model)
     {
         model.addAttribute("recipe", new RecipeCommand());
+        model.addAttribute("categories", categoryRepository.findAll());
 
         return "recipe/recipeForm";
     }
@@ -46,6 +55,7 @@ public class RecipeController
     public String updateRecipe(@PathVariable Long id, Model model)
     {
         model.addAttribute("recipe", recipeService.findCommandById(id));
+        model.addAttribute("categories", categoryRepository.findAll());
 
         return "recipe/recipeForm";
     }
@@ -58,6 +68,18 @@ public class RecipeController
             result.getAllErrors().forEach(error -> { log.debug(error.toString()); });
 
             return "recipe/recipeForm";
+        }
+        if (command.getCategoryNames().length > 0)
+        {
+            for (String category : command.getCategoryNames())
+            {
+                Optional<Category> categoryOptional = categoryRepository.findByDescription(category);
+
+                if (categoryOptional.isPresent())
+                {
+                    command.getCategories().add(categoryToCategoryCommand.convert(categoryOptional.get()));
+                }
+            }
         }
 
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);

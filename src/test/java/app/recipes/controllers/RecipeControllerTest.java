@@ -1,8 +1,9 @@
 package app.recipes.controllers;
 
+import app.recipes.converters.CategoryToCategoryCommand;
 import app.recipes.exceptions.NotFoundException;
 import app.recipes.models.Recipe;
-import app.recipes.repositorys.RecipeRepository;
+import app.recipes.repositorys.CategoryRepository;
 import app.recipes.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,9 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
-import java.util.Optional;
-
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,6 +26,12 @@ public class RecipeControllerTest
     @Mock
     Model model;
 
+    @Mock
+    CategoryRepository categoryRepository;
+
+    @Mock
+    CategoryToCategoryCommand categoryToCategoryCommand;
+
     RecipeController controller;
 
     MockMvc mockMvc;
@@ -37,7 +41,7 @@ public class RecipeControllerTest
     {
         MockitoAnnotations.initMocks(this);
 
-        controller = new RecipeController(recipeService);
+        controller = new RecipeController(recipeService, categoryRepository, categoryToCategoryCommand);
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setControllerAdvice(new ControllerExceptionHandler())

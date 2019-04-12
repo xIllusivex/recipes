@@ -51,7 +51,7 @@
                                     <label>Categories:</label>
                                 </div>
                                 <div class="col-md-9 form-group">
-                                    <div class="radio">
+                                    <div class="radio" th:remove="all">
                                         <label>
                                             <input type="checkbox" value=""/>
                                             Cat 1
@@ -62,6 +62,10 @@
                                             <input type="checkbox" value=""/>
                                             Cat 2
                                         </label>
+                                    </div>
+                                    <div class="radio" th:each="category : ${categories}">
+                                        <input type="checkbox"  name="categoryNames" th:value="${category.getDescription()}" />
+                                        <label th:text="${category.getDescription()}">Wireframe</label>
                                     </div>
                                 </div>
                             </div>

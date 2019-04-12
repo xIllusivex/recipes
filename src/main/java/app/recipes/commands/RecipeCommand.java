@@ -26,7 +26,7 @@ public class RecipeCommand
                          @Min(1) @Max(999) Integer prepTime, @Min(1) @Max(999) Integer cookTime,
                          @Min(1) @Max(100) Integer servings, String source, @URL @NotBlank String url,
                          @NotBlank String directions, Byte[] image, Set<IngredientCommand> ingredients,
-                         Difficulty difficulty, NotesCommand notes, Set<CategoryCommand> categories)
+                         Difficulty difficulty, NotesCommand notes, Set<CategoryCommand> categories, String[] categoryNames)
     {
         this.id = id;
         this.description = description;
@@ -41,6 +41,7 @@ public class RecipeCommand
         this.difficulty = difficulty;
         this.notes = notes;
         this.categories = categories;
+        this.categoryNames = categoryNames;
     }
 
 
@@ -72,5 +73,6 @@ public class RecipeCommand
     private Difficulty difficulty;
     private NotesCommand notes;
     private Set<CategoryCommand> categories = new HashSet<>();
+    private String[] categoryNames;
 
 }

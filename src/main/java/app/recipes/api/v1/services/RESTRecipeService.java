@@ -8,5 +8,7 @@ public interface RESTRecipeService
 {
     List<RecipeDTO> getAllRecipes();
 
+    List<RecipeDTO> findAllRecipesByCategory(String category);
+
     RecipeDTO findById(Long id);
 }

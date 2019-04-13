@@ -34,4 +34,13 @@ public class RESTRecipeServiceImpl implements RESTRecipeService
     {
         return recipeMapper.recipeToRecipeDTO(recipeRepository.findById(id).orElse(null));
     }
+
+    @Override
+    public List<RecipeDTO> findAllRecipesByCategory(String category)
+    {
+        return recipeRepository.findRecipesByCategories(category)
+                .stream()
+                .map(recipeMapper::recipeToRecipeDTO)
+                .collect(Collectors.toList());
+    }
 }

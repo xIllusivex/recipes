@@ -3,6 +3,7 @@ package app.recipes.api.v1.controllers;
 import app.recipes.api.v1.models.RecipeDTO;
 import app.recipes.api.v1.services.RESTRecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,13 @@ public class RecipeControllerRest
 
     @GetMapping("recipes/")
     @ResponseStatus(HttpStatus.OK)
-    public List<RecipeDTO> getAllRecipes()
+    public List<RecipeDTO> getAllRecipes(@Param("category") String category)
     {
+        if (category != null)
+        {
+            return restRecipeService.findAllRecipesByCategory(category);
+        }
+
         return restRecipeService.getAllRecipes();
     }
 

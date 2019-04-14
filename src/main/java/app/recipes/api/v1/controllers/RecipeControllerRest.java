@@ -22,6 +22,7 @@ public class RecipeControllerRest
         this.restRecipeService = restRecipeService;
     }
 
+    @CrossOrigin
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public String sanitationCheck()
@@ -30,10 +31,13 @@ public class RecipeControllerRest
         return "Hello, World!";
     }
 
+    @CrossOrigin
     @GetMapping("recipes/")
     @ResponseStatus(HttpStatus.OK)
     public List<RecipeDTO> getAllRecipes(@Param("category") String category)
     {
+        log.debug("serving up the recipe resource.");
+
         if (category != null)
         {
             return restRecipeService.findAllRecipesByCategory(category);
@@ -42,6 +46,7 @@ public class RecipeControllerRest
         return restRecipeService.getAllRecipes();
     }
 
+    @CrossOrigin
     @GetMapping("recipes/{id}/")
     @ResponseStatus(HttpStatus.OK)
     public RecipeDTO getRecipe(@PathVariable Long id)

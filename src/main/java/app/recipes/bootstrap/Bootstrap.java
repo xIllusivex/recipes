@@ -118,14 +118,14 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
         guacRecipe.setDifficulty(Difficulty.EASY);
         guacRecipe.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
         guacRecipe.setSource("SimpleRecipes");
-        guacRecipe.setDirections("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
+        guacRecipe.setDirections("* Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
                 "\n" +
-                "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)" +
+                "* Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)" +
                 "\n" +
-                "3 Add salt, lime juice, and the rest: Sprinkle with salt and lime (or lemon) juice. The acid in the lime juice will provide some balance to the richness of the avocado and will help delay the avocados from turning brown.\n" +
+                "* Add salt, lime juice, and the rest: Sprinkle with salt and lime (or lemon) juice. The acid in the lime juice will provide some balance to the richness of the avocado and will help delay the avocados from turning brown.\n" +
                 "Add the chopped onion, cilantro, black pepper, and chiles. Chili peppers vary individually in their hotness. So, start with a half of one chili pepper and add to the guacamole to your desired degree of hotness.\n" +
                 "Remember that much of this is done to taste because of the variability in the fresh ingredients. Start with this recipe and adjust to your taste.\n" +
-                "4 Cover with plastic and chill to store: Place plastic wrap on the surface of the guacamole cover it and to prevent air reaching it. (The oxygen in the air causes oxidation which will turn the guacamole brown.) Refrigerate until ready to serve.\n" +
+                "* Cover with plastic and chill to store: Place plastic wrap on the surface of the guacamole cover it and to prevent air reaching it. (The oxygen in the air causes oxidation which will turn the guacamole brown.) Refrigerate until ready to serve.\n" +
                 "Chilling tomatoes hurts their flavor, so if you want to add chopped tomato to your guacamole, add it just before serving.\n" +
                 "\n" +
                 "\n" +
@@ -166,15 +166,15 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
         tacosRecipe.setSource("SimpleRecipes");
         tacosRecipe.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
 
-        tacosRecipe.setDirections("1 Prepare a gas or charcoal grill for medium-high, direct heat.\n" +
-                "2 Make the marinade and coat the chicken: In a large bowl, stir together the chili powder, oregano, cumin, sugar, salt, garlic and orange zest. Stir in the orange juice and olive oil to make a loose paste. Add the chicken to the bowl and toss to coat all over.\n" +
+        tacosRecipe.setDirections("* Prepare a gas or charcoal grill for medium-high, direct heat.\n" +
+                "* Make the marinade and coat the chicken: In a large bowl, stir together the chili powder, oregano, cumin, sugar, salt, garlic and orange zest. Stir in the orange juice and olive oil to make a loose paste. Add the chicken to the bowl and toss to coat all over.\n" +
                 "Set aside to marinate while the grill heats and you prepare the rest of the toppings.\n" +
                 "\n" +
                 "\n" +
-                "3 Grill the chicken: Grill the chicken for 3 to 4 minutes per side, or until a thermometer inserted into the thickest part of the meat registers 165F. Transfer to a plate and rest for 5 minutes.\n" +
-                "4 Warm the tortillas: Place each tortilla on the grill or on a hot, dry skillet over medium-high heat. As soon as you see pockets of the air start to puff up in the tortilla, turn it with tongs and heat for a few seconds on the other side.\n" +
+                "* Grill the chicken: Grill the chicken for 3 to 4 minutes per side, or until a thermometer inserted into the thickest part of the meat registers 165F. Transfer to a plate and rest for 5 minutes.\n" +
+                "* Warm the tortillas: Place each tortilla on the grill or on a hot, dry skillet over medium-high heat. As soon as you see pockets of the air start to puff up in the tortilla, turn it with tongs and heat for a few seconds on the other side.\n" +
                 "Wrap warmed tortillas in a tea towel to keep them warm until serving.\n" +
-                "5 Assemble the tacos: Slice the chicken into strips. On each tortilla, place a small handful of arugula. Top with chicken slices, sliced avocado, radishes, tomatoes, and onion slices. Drizzle with the thinned sour cream. Serve with lime wedges.\n" +
+                "* Assemble the tacos: Slice the chicken into strips. On each tortilla, place a small handful of arugula. Top with chicken slices, sliced avocado, radishes, tomatoes, and onion slices. Drizzle with the thinned sour cream. Serve with lime wedges.\n" +
                 "\n" +
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvtrAnNm");
@@ -236,17 +236,17 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
         crispyCheese.addIngredient(new Ingredient("Fresh Cilantro Leaves", new BigDecimal(1), cupsUom, crispyCheese));
         crispyCheese.addIngredient(new Ingredient("Corn Tortillas", new BigDecimal(10), eachUom, crispyCheese));
 
-        crispyCheese.setDirections("1 Cook the mushrooms: In a large skillet over medium-high, heat the oil until it shimmers. Add the mushrooms to the pan and cook, stirring occasionally, for 5 minutes, or until they release some of their moisture.\n" +
+        crispyCheese.setDirections("* Cook the mushrooms: In a large skillet over medium-high, heat the oil until it shimmers. Add the mushrooms to the pan and cook, stirring occasionally, for 5 minutes, or until they release some of their moisture.\n" +
                 "\n" +
                 "Add the garlic and scallions to the pan and cook for 2 to 4 minutes longer, or until the garlic is aromatic and the scallions soften. Add the salt and pepper.\n" +
-                "2 Assemble and cook the quesadillas: Wipe out the skillet and place it over medium heat. (Alternatively, place a pancake griddle over the heat, or heat an electric griddle.)\n" +
+                "* Assemble and cook the quesadillas: Wipe out the skillet and place it over medium heat. (Alternatively, place a pancake griddle over the heat, or heat an electric griddle.)\n" +
                 "\n" +
                 "Once hot, place a tortilla in the pan and scatter with 2 tablespoons of cheese and 2 tablespoons of the mushrooms. Top with cilantro leaves and another 2 tablespoons of the cheese. Place a second tortilla on top and press down lightly.\n" +
                 "\n" +
                 "Cook on one side for about 1 minute, or until the cheese begins to melt. With a large spatula, flip the quesadilla over and cook for another 30 seconds, or until the cheese melts and the tortillas are lightly toasted with a few brown spots. Repeat with remaining tortillas, cheese, and filling.\n" +
                 "\n" +
                 "Alternative Microwave Method: Assemble the quesadillas as above. Place on a plate and microwave for about 1 minute, or until the cheese melts. Cut into quarters. (Your quesadillas will be softer and less crispy.)\n" +
-                "3 Serve: Cut each quesadilla into quarters as they finish cooking and serve while hot.");
+                "* Serve: Cut each quesadilla into quarters as they finish cooking and serve while hot.");
 
         // adding notes.
         Notes crispyCheeseNote = new Notes();

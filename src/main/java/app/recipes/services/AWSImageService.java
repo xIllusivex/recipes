@@ -7,6 +7,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.S3Object;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,13 +46,15 @@ public class AWSImageService
             .build();
     }
 
-    public void getFile()
+    public S3Object getFile(String file)
     {
-        log.debug("searching bucket");
-
         if (s3client.doesBucketExistV2(BUCKET_NAME))
         {
             log.debug("Bucket Exists!!");
+
+            return s3client.getObject(BUCKET_NAME, file);
         }
+
+        return null;
     }
 }

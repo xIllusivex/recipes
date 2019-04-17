@@ -25,7 +25,7 @@ public class RecipeCommand
     public RecipeCommand(Long id, @NotBlank @Size(min = 3, max = 255) String description,
                          @Min(1) @Max(999) Integer prepTime, @Min(1) @Max(999) Integer cookTime,
                          @Min(1) @Max(100) Integer servings, String source, @URL @NotBlank String url,
-                         @NotBlank String directions, Byte[] image, Set<IngredientCommand> ingredients,
+                         @NotBlank String directions, String image, Set<IngredientCommand> ingredients,
                          Difficulty difficulty, NotesCommand notes, Set<CategoryCommand> categories, String[] categoryNames)
     {
         this.id = id;
@@ -68,7 +68,7 @@ public class RecipeCommand
 
     @NotBlank
     private String directions;
-    private Byte[] image;
+    private String image;
     private Set<IngredientCommand> ingredients = new HashSet<>();
     private Difficulty difficulty;
     private NotesCommand notes;

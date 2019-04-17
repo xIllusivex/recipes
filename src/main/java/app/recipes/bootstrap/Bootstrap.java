@@ -118,6 +118,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
         guacRecipe.setDifficulty(Difficulty.EASY);
         guacRecipe.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
         guacRecipe.setSource("SimpleRecipes");
+        guacRecipe.setImage("avocado-delicious-diet-1321942.jpg");
         guacRecipe.setDirections("* Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
                 "\n" +
                 "* Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)" +

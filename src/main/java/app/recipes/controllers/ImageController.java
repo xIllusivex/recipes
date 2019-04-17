@@ -4,6 +4,7 @@ import app.recipes.commands.RecipeCommand;
 import app.recipes.services.AWSImageService;
 import app.recipes.services.ImageService;
 import app.recipes.services.RecipeService;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 @Controller
 public class ImageController
@@ -35,7 +34,6 @@ public class ImageController
     @GetMapping("/recipe/{id}/image")
     public String serveForm(@PathVariable Long id, Model model)
     {
-        awsImageService.getFile();
         model.addAttribute("recipe", recipeService.findCommandById(id));
 
         return "recipe/imageUploadForm";
@@ -46,23 +44,12 @@ public class ImageController
     {
         RecipeCommand recipeCommand = recipeService.findCommandById(id);
 
-        Byte[] image = recipeCommand.getImage();
+        S3ObjectInputStream image = awsImageService.getFile(recipeCommand.getImage()).getObjectContent();
 
-        byte[] byteArray = new byte[image != null ? image.length : 0];
-
-        if (image != null)
-        {
-            int i = 0;
-
-            for (Byte wrappedByte : recipeCommand.getImage())
-            {
-                byteArray[i++] = wrappedByte; // auto unboxing.
-            }
-        }
+        // TODO connect to the s3 bucket and serve up the image from there.
 
         response.setContentType("image/jpeg");
-        InputStream is = new ByteArrayInputStream(byteArray);
-        IOUtils.copy(is, response.getOutputStream());
+        IOUtils.copy(image, response.getOutputStream());
     }
 
     @PostMapping("/recipe/{id}/image")

@@ -39,7 +39,7 @@ public class ImageServiceImpl implements ImageService
                 byteObject[i++] = b;
             }
 
-            recipe.setImage(byteObject);
+            // TODO move image saving method to AWS
 
             recipeRepository.save(recipe);
         } catch (IOException e)

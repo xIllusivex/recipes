@@ -21,7 +21,7 @@ public class RecipeDTO
     private String url;
     private String directions;
     private Set<Ingredient> ingredients;
-    private Byte[] image;
+    private String image;
     private Difficulty difficulty;
     private Notes notes;
     private Set<Category> categories;

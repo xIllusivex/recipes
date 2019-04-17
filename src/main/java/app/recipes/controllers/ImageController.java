@@ -1,6 +1,7 @@
 package app.recipes.controllers;
 
 import app.recipes.commands.RecipeCommand;
+import app.recipes.services.AWSImageService;
 import app.recipes.services.ImageService;
 import app.recipes.services.RecipeService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -22,9 +23,11 @@ public class ImageController
 {
     private final ImageService imageService;
     private final RecipeService recipeService;
+    private final AWSImageService awsImageService;
 
-    public ImageController(ImageService imageService, RecipeService recipeService)
+    public ImageController(ImageService imageService, RecipeService recipeService, AWSImageService awsImageService)
     {
+        this.awsImageService = awsImageService;
         this.imageService = imageService;
         this.recipeService = recipeService;
     }
@@ -32,6 +35,7 @@ public class ImageController
     @GetMapping("/recipe/{id}/image")
     public String serveForm(@PathVariable Long id, Model model)
     {
+        awsImageService.getFile();
         model.addAttribute("recipe", recipeService.findCommandById(id));
 
         return "recipe/imageUploadForm";

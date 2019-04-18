@@ -80,7 +80,6 @@ public class AWSImageService
         {
             log.error(e.getMessage());
         }
-
         s3client.putObject(BUCKET_NAME, file.getName(), file);
 
         file.delete();

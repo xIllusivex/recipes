@@ -5,7 +5,6 @@ import app.recipes.models.Difficulty;
 import app.recipes.models.Ingredient;
 import app.recipes.models.Notes;
 import lombok.Data;
-import org.mapstruct.Mapping;
 
 import java.util.Set;
 

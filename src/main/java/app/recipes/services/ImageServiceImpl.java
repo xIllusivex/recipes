@@ -23,31 +23,14 @@ public class ImageServiceImpl implements ImageService
 
     @Override
     @Transactional
-    public void saveImage(Long recipeId, MultipartFile file)
+    public void saveImage(Long recipeId, String fileName)
     {
-        log.debug("saving image.");
+        log.debug("saving image" + fileName + " name to recipeId: " + recipeId);
 
-        try {
-            Recipe recipe = recipeRepository.findById(recipeId).get();
+        Recipe recipe = recipeRepository.findById(recipeId).get();
 
-            Byte[] byteObject = new Byte[file.getBytes().length];
+        recipe.setImage(fileName);
 
-            int i = 0;
-
-            for (byte b : file.getBytes())
-            {
-                byteObject[i++] = b;
-            }
-
-            // TODO move image saving method to AWS
-
-            recipeRepository.save(recipe);
-        } catch (IOException e)
-        {
-            log.error("Error uploading file ", e);
-
-            e.printStackTrace();
-        }
-
+        recipeRepository.save(recipe);
     }
 }

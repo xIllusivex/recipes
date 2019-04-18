@@ -165,6 +165,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
         tacosRecipe.setDifficulty(Difficulty.MODERATE);
         tacosRecipe.setServings(2);
         tacosRecipe.setSource("SimpleRecipes");
+        tacosRecipe.setImage("blur-close-up-cuisine-2087748.jpg");
         tacosRecipe.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
 
         tacosRecipe.setDirections("* Prepare a gas or charcoal grill for medium-high, direct heat.\n" +
@@ -225,6 +226,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent>
         crispyCheese.setCookTime(10);
         crispyCheese.setDifficulty(Difficulty.EASY);
         crispyCheese.setSource("SimpleRecipes");
+        crispyCheese.setImage("cheese-food-lunch-58722.jpg");
         crispyCheese.setUrl("https://www.simplyrecipes.com/recipes/crispy_cheese_and_mushroom_quesadillas/");
 
         crispyCheese.addIngredient(new Ingredient("Olive Oil", new BigDecimal(2), tableSpoonUom, crispyCheese));

@@ -4,7 +4,9 @@ import app.recipes.commands.RecipeCommand;
 import app.recipes.services.AWSImageService;
 import app.recipes.services.ImageService;
 import app.recipes.services.RecipeService;
+import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 @Controller
 public class ImageController
 {
@@ -44,18 +47,20 @@ public class ImageController
     {
         RecipeCommand recipeCommand = recipeService.findCommandById(id);
 
-        S3ObjectInputStream image = awsImageService.getFile(recipeCommand.getImage()).getObjectContent();
+        S3Object image = awsImageService.getFile(recipeCommand.getImage());
 
-        // TODO connect to the s3 bucket and serve up the image from there.
+        log.debug(image.getObjectContent().toString());
 
         response.setContentType("image/jpeg");
-        IOUtils.copy(image, response.getOutputStream());
+        IOUtils.copy(image.getObjectContent(), response.getOutputStream());
     }
 
     @PostMapping("/recipe/{id}/image")
     public String handleImagePost(@PathVariable Long id, @RequestParam("imagefile") MultipartFile file)
     {
-        imageService.saveImage(id, file);
+        imageService.saveImage(id, file.getOriginalFilename());
+
+        awsImageService.saveFile(file);
 
         return "redirect:/recipe/show/" + id;
     }

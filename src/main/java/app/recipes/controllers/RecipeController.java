@@ -69,7 +69,7 @@ public class RecipeController
 
             return "recipe/recipeForm";
         }
-        if (command.getCategoryNames().length > 0)
+        if (command.getCategoryNames() != null || command.getCategoryNames().length > 0)
         {
             for (String category : command.getCategoryNames())
             {

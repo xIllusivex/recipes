@@ -3,7 +3,6 @@ package app.recipes.api.v1.mapper;
 import app.recipes.api.v1.models.RecipeDTO;
 import app.recipes.models.Recipe;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 

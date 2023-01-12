@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 

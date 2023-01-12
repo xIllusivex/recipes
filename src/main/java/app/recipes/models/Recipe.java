@@ -1,8 +1,7 @@
 package app.recipes.models;
 
 import lombok.Data;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 

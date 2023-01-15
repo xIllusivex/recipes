@@ -1,0 +1,1 @@
+web: java -jar target/recipes-0.0.1-SNAPSHOT.jar
